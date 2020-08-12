@@ -10,8 +10,8 @@ import bottle
 
 @bottle.route('/')
 def index():
-    str_return = 'Welcome !'
-    return str_return
+    tpl_1 = bottle.template('Welcome {{str_name}}!', str_name = 'William')
+    return tpl_1
 
 bottle.run(app = None, server = 'wsgiref', host='localhost', port = 8080, debug = True)
 
