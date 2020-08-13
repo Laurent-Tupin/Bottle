@@ -52,7 +52,7 @@ def wiki_page():
 
 
 
-bottle.run(app = None, server = 'wsgiref', host='localhost', port = 8080, debug = True)
-
+bottle.run(app = None, server='wsgiref', host='localhost', port = 8080, debug = True)
+#reloader = True, 
 
 
