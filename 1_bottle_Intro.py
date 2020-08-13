@@ -5,7 +5,6 @@ Install:
 '''
 
 import bottle
-import request
 
 #print(bottle.__author__)
 
@@ -15,7 +14,7 @@ def not_found(error):
     return 'The request failed: {}'.format(str(error))
 
 @bottle.error(401)
-def not_found(error):
+def not_found_401(error):
     return 'Cusotmized error: {}'.format(str(error))
 
 
@@ -23,11 +22,11 @@ def not_found(error):
 @bottle.route('/', method = ['GET','POST','DELETE'])
 @bottle.view('1_Template_Intro')
 def index():
-    if request.method == 'GET':
+    if bottle.request.method == 'GET':
         pass
-    if request.method == 'POST':
+    if bottle.request.method == 'POST':
         pass
-    if request.method == 'DELETE':
+    if bottle.request.method == 'DELETE':
         pass
     #    tpl_welcome = bottle.template('Welcome {{str_name}}!', str_name = 'William')
     d_welcome = dict(str_name = 'William')
@@ -41,6 +40,17 @@ def login():
     # if it fails...
     bottle.redirect('/')
     
+#Wikipage   /wikipage?id=10&section=b
+@bottle.route('/wikipage')
+def wiki_page():
+    str_pageid = bottle.request.query.pageid or '-1'
+    str_section = bottle.request.query.section or 'zz'
+    tpl_wiki = bottle.template('The wikipage {{pageid}}, section {{section}}', 
+                               pageid = str_pageid, section = str_section)
+    return tpl_wiki 
+
+
+
 
 bottle.run(app = None, server = 'wsgiref', host='localhost', port = 8080, debug = True)
 
